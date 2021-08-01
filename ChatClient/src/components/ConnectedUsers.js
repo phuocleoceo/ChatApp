@@ -5,7 +5,11 @@ export default function ConnectedUsers(props) {
 	return (
 		<div className='user-list'>
 			<h4>Connected Users</h4>
-			{users.map((u, idx) => <h6 key={idx}>{u}</h6>)}
+			{
+				users.map((u, idx) =>
+					<h5 key={idx}>{u}</h5>
+				)
+			}
 		</div>
 
 	)

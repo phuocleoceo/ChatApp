@@ -16,7 +16,7 @@ export default function MessageContainer(props) {
 		<div ref={messageRef} className='message-container' >
 			{messages.map((m, index) =>
 				<div key={index} className='user-message'>
-					<div className='message bg-primary'>{m.message}</div>
+					<div className='message'>{m.message}</div>
 					<div className='from-user'>{m.user}</div>
 				</div>
 			)}

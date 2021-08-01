@@ -9,9 +9,11 @@ namespace ChatHub.Hubs
 {
 	public class AppHub : Hub
 	{
+		private readonly string MyBot;
 		private readonly IDictionary<string, User> _connections;
 		public AppHub(IDictionary<string, User> connections)
 		{
+			MyBot = "Bot";
 			_connections = connections;
 		}
 
@@ -29,7 +31,7 @@ namespace ChatHub.Hubs
 			await Groups.AddToGroupAsync(Context.ConnectionId, user.Room);
 			_connections[Context.ConnectionId] = user;
 
-			await Clients.Group(user.Room).SendAsync("ReceiveMessage", "Hey Everyone !",
+			await Clients.Group(user.Room).SendAsync("ReceiveMessage", MyBot,
 			 								$"{user.UserName} has joined {user.Room} !");
 			await SendUsersConnected(user.Room);
 		}
@@ -47,7 +49,7 @@ namespace ChatHub.Hubs
 			if (_connections.TryGetValue(Context.ConnectionId, out User user))
 			{
 				_connections.Remove(Context.ConnectionId);
-				Clients.Group(user.Room).SendAsync("ReceiveMessage", "Hey Everyone !",
+				Clients.Group(user.Room).SendAsync("ReceiveMessage", MyBot,
 													$"{user.UserName} has left !");
 				SendUsersConnected(user.Room);
 			}

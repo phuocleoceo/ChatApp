@@ -10,7 +10,6 @@ export default function SendMessage(props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		sendMessage(message);
-		alert(message);
 		setMessage("");
 	}
 
@@ -20,7 +19,7 @@ export default function SendMessage(props) {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<TextField name="message" onChange={handleChange}
+			<TextField value={message} name="message" onChange={handleChange}
 				fullWidth required label="Message" variant="outlined"
 				InputProps={{
 					endAdornment: (
