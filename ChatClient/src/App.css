@@ -2,6 +2,12 @@ Form Button {
     width: 100%;
 }
 
+h4{
+	font-size: 1.5rem;
+	color: white;
+	text-align: center;
+}
+
 h2 {
     color: #313131;
 }
@@ -40,9 +46,9 @@ hr.line {
     float: left;
     background-color: #313131;
     color:white;
-    width: 200px;
-    height: 440px;
-    margin-right: 4px;
+    width: 15vw;
+    height: 70vh;
+    margin-right: 0.5vw;
 }
 
 .message-container {

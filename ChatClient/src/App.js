@@ -1,12 +1,13 @@
 import './App.css';
-//import SendMessage from './components/SendMessage';
-//import Lobby from './components/Lobby';
+//import Chat from './components/Chat';
+// import Lobby from './components/Lobby';
+
 
 function App() {
 	return (
 		<div className="App">
-			{/* <Lobby /> */}
-			{/* <SendMessage /> */}
+			{/* <Lobby />
+			<Chat /> */}
 		</div>
 	);
 }
