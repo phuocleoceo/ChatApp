@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import Chat from './components/Chat';
 import Lobby from './components/Lobby';
-import { makeStyles } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-const useStyles = makeStyles((theme) => ({
-	app: {
-		margin: "auto",
-		paddingTop: "1vh",
-		width: "85%",
-		textAlign: "center"
-	},
-	title: {
-		fontSize: "1.7rem",
-		marginTop: "1vh",
-		fontWeight: "bold"
-	},
-	line: {
-		border: "1px solid #313131",
-		width: "20%",
-		marginBottom: "1vh"
-	}
-}));
+const AppContainer = styled("div")({
+	margin: "auto",
+	paddingTop: "1vh",
+	width: "85%",
+	textAlign: "center"
+});
+
+const AppTitle = styled("div")({
+	fontSize: "1.7rem",
+	marginTop: "1vh",
+	fontWeight: "bold"
+});
+
+const AppLine = styled("hr")({
+	border: "1px solid #313131",
+	width: "20%",
+	marginBottom: "1vh"
+});
 
 function App() {
-	const classes = useStyles();
 	const [connection, setConnection] = useState();
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
@@ -74,13 +73,9 @@ function App() {
 	}
 
 	return (
-		<div className={classes.app}>
-			<div className={classes.title}>
-				Chat App
-			</div>
-
-			<hr className={classes.line} />
-
+		<AppContainer>
+			<AppTitle>Chat App</AppTitle>
+			<AppLine />
 			{
 				connection
 					?
@@ -89,8 +84,7 @@ function App() {
 					:
 					<Lobby joinRoom={joinRoom} />
 			}
-		</div>
-
+		</AppContainer>
 	);
 }
 

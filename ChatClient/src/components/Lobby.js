@@ -15,6 +15,7 @@ export default function Lobby(props) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		localStorage.setItem("current_chat_user", infor.username);
 		joinRoom(infor.username, infor.room);
 	}
 

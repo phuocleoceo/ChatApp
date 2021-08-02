@@ -4,6 +4,12 @@ import MessageContainer from './MessageContainer';
 import SendMessage from './SendMessage';
 import ConnectedUsers from './ConnectedUsers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { styled } from '@material-ui/core';
+
+const LeaveButton = styled("div")({
+	textAlign: "right !important",
+	marginBottom: "2vh"
+});
 
 export default function Chat(props) {
 	const { sendMessage, messages, users, closeConnection } = props;
@@ -11,14 +17,14 @@ export default function Chat(props) {
 
 	return (
 		<div>
-			<div style={{ textAlign: "right", marginBottom: "2vh" }}>
+			<LeaveButton>
 				<Button variant="contained" color="secondary"
 					onClick={handleCloseConnection}
 					startIcon={<ExitToAppIcon />}
 				>
 					Leave Room
 				</Button>
-			</div>
+			</LeaveButton>
 
 			<Paper elevation={3}>
 				<Grid container>
@@ -37,6 +43,5 @@ export default function Chat(props) {
 				</Grid>
 			</Paper>
 		</div>
-
 	)
 }
