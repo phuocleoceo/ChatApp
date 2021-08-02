@@ -24,12 +24,13 @@ namespace ChatHub
 			// CORS
 			services.AddCors(options =>
 			{
-				options.AddPolicy("ChatAppPolicy",builder =>
+				options.AddDefaultPolicy(builder =>
 				{
-					builder.WithOrigins(Configuration.GetSection("ClientURL").Value)
+					builder.AllowAnyOrigin()
 						   .AllowAnyHeader()
 						   .AllowAnyMethod()
-						   .AllowCredentials();
+						   .AllowCredentials()
+                           .WithOrigins(Configuration.GetSection("ClientURL").Value);;
 				});
 			});
 
@@ -46,7 +47,7 @@ namespace ChatHub
 
 			app.UseRouting();
 
-			app.UseCors("ChatAppPolicy");
+			app.UseCors();
 
 			app.UseEndpoints(endpoints =>
 			{
