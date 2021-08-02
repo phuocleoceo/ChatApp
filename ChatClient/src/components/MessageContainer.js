@@ -32,8 +32,9 @@ const CurrentUser = styled("div")({
 });
 
 const OtherMessageContent = styled("div")({
+	textAlign: "left",
 	maxWidth: "35vw",
-	backgroundColor: "#c4ccc6",
+	backgroundColor: "#ccccca",
 	padding: "7px",
 	fontSize: "17px",
 	color: "black",
@@ -42,7 +43,7 @@ const OtherMessageContent = styled("div")({
 });
 
 const OtherUser = styled("div")({
-	textAlign: "center",
+	textAlign: "left",
 	fontSize: "small",
 	marginBottom: "3px",
 	marginRight: "5px"
@@ -51,6 +52,7 @@ const OtherUser = styled("div")({
 export default function MessageContainer(props) {
 	const { messages } = props;
 	const messageRef = useRef();
+	const currentUserName = localStorage.getItem("current_chat_user");
 
 	useEffect(() => {
 		if (messageRef && messageRef.current) {
@@ -64,13 +66,30 @@ export default function MessageContainer(props) {
 		<MessContainer ref={messageRef}>
 			{messages.map((m, index) =>
 				<UserMessage key={index}>
-					<CurrentMessageContent>
-						{m.message}
-					</CurrentMessageContent>
+					{
+						(m.user === currentUserName)
+							?
+							<>
+								<CurrentMessageContent>
+									{m.message}
+								</CurrentMessageContent>
 
-					<CurrentUser>
-						{m.user}
-					</CurrentUser>
+								<CurrentUser>
+									{m.user}
+								</CurrentUser>
+							</>
+							:
+							<>
+								<OtherMessageContent>
+									{m.message}
+								</OtherMessageContent>
+
+								<OtherUser>
+									{m.user}
+								</OtherUser>
+							</>
+					}
+
 				</UserMessage>
 			)}
 		</MessContainer>
