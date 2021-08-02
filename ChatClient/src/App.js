@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import Chat from './components/Chat';
 import Lobby from './components/Lobby';
+import { makeStyles } from '@material-ui/core';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import './App.css';
+
+const useStyles = makeStyles((theme) => ({
+	app: {
+		margin: "auto",
+		paddingTop: "1vh",
+		width: "85%",
+		textAlign: "center"
+	},
+	title: {
+		fontSize: "1.7rem",
+		marginTop: "1vh",
+		fontWeight: "bold"
+	},
+	line: {
+		border: "1px solid #313131",
+		width: "20%",
+		marginBottom: "1vh"
+	}
+}));
 
 function App() {
+	const classes = useStyles();
 	const [connection, setConnection] = useState();
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
@@ -54,14 +74,20 @@ function App() {
 	}
 
 	return (
-		<div className='app'>
-			<h2>Chat App</h2>
-			<hr className='line' />
+		<div className={classes.app}>
+			<div className={classes.title}>
+				Chat App
+			</div>
+
+			<hr className={classes.line} />
+
 			{
 				connection
-					? <Chat sendMessage={sendMessage} messages={messages}
+					?
+					<Chat sendMessage={sendMessage} messages={messages}
 						users={users} closeConnection={closeConnection} />
-					: <Lobby joinRoom={joinRoom} />
+					:
+					<Lobby joinRoom={joinRoom} />
 			}
 		</div>
 

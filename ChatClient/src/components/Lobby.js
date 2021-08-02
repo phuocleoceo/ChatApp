@@ -26,7 +26,7 @@ export default function Lobby(props) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="lobby">
+		<form onSubmit={handleSubmit} style={{ width: "40%", margin: "auto" }}>
 			<TextField name="username" onChange={handleChange}
 				fullWidth required label="Username" variant="outlined"
 				InputProps={{
@@ -52,7 +52,8 @@ export default function Lobby(props) {
 			<br /><br />
 
 			<Button type="submit" variant="contained"
-				color="primary" endIcon={<FavoriteSharp />}>
+				style={{ width: "100%" }} color="primary"
+				endIcon={<FavoriteSharp />}>
 				Join Room
 			</Button>
 		</form >

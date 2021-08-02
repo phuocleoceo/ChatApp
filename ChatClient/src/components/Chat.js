@@ -1,19 +1,17 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Paper, Grid } from '@material-ui/core';
 import MessageContainer from './MessageContainer';
 import SendMessage from './SendMessage';
 import ConnectedUsers from './ConnectedUsers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Grid from '@material-ui/core/Grid';
 
 export default function Chat(props) {
 	const { sendMessage, messages, users, closeConnection } = props;
-
 	const handleCloseConnection = () => closeConnection();
 
 	return (
 		<div>
-			<div className='leave-room'>
+			<div style={{ textAlign: "right", marginBottom: "2vh" }}>
 				<Button variant="contained" color="secondary"
 					onClick={handleCloseConnection}
 					startIcon={<ExitToAppIcon />}
@@ -21,18 +19,23 @@ export default function Chat(props) {
 					Leave Room
 				</Button>
 			</div>
-			<Grid container>
-				<ConnectedUsers users={users} />
 
-				<Grid container xs>
-					<Grid item xs={12}>
-						<MessageContainer messages={messages} />
+			<Paper elevation={3}>
+				<Grid container>
+					<Grid item>
+						<ConnectedUsers users={users} />
 					</Grid>
-					<Grid item xs={12}>
-						<SendMessage sendMessage={sendMessage} />
+
+					<Grid item xs>
+						<Grid item xs={12}>
+							<MessageContainer messages={messages} />
+						</Grid>
+						<Grid item xs={12}>
+							<SendMessage sendMessage={sendMessage} />
+						</Grid>
 					</Grid>
 				</Grid>
-			</Grid>
+			</Paper>
 		</div>
 
 	)
