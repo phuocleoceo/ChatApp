@@ -10,10 +10,11 @@ h4{
 
 h2 {
     color: #313131;
+	font-size: 1.5rem;
 }
 
 h5 {
-	font-size: 1rem;
+	font-size: 1.1rem;
     color: greenyellow;
 }
 
@@ -26,37 +27,36 @@ hr.line {
 .app {
     margin: auto;
     padding-top: 1vh;
-    width: 80%;
+    width: 85%;
     text-align: center;
 }
 
 .lobby {
-    width: 400px;
+    width: 40%;
     margin: auto;
-}
-
-.chat {
-    display: grid;
 }
 
 .leave-room {
     text-align: right;
-    margin-bottom: 4px;
+    margin-bottom: 1vh;
 }
 
 .user-list {
+	overflow: auto;
+	text-align: center;
     float: left;
     background-color: #313131;
     color:white;
     width: 15vw;
-    height: 70vh;
+    height: 71vh;
     margin-right: 0.5vw;
 }
 
 .message-container {
-    height: 61.5vh;    
+    height: 61vh;    
     background-color: white;
     overflow: auto;
+	padding: 5px;
     border-radius: 5px;
 }
 
@@ -67,10 +67,11 @@ hr.line {
 }
 
 .message {
+	max-width: 40vw;
 	background-color: #0275d8;
     display: inline-flex;
     margin: 0px auto 0px auto;
-    padding: 5px;
+    padding: 7px;
     font-size: 18px;
     color:white;
     border-radius: 20px;

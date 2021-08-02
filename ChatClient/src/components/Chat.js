@@ -4,6 +4,7 @@ import MessageContainer from './MessageContainer';
 import SendMessage from './SendMessage';
 import ConnectedUsers from './ConnectedUsers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Grid from '@material-ui/core/Grid';
 
 export default function Chat(props) {
 	const { sendMessage, messages, users, closeConnection } = props;
@@ -20,13 +21,18 @@ export default function Chat(props) {
 					Leave Room
 				</Button>
 			</div>
+			<Grid container>
+				<ConnectedUsers users={users} />
 
-			<ConnectedUsers users={users} />
-
-			<div className='chat'>
-				<MessageContainer messages={messages} />
-				<SendMessage sendMessage={sendMessage} />
-			</div>
+				<Grid container xs>
+					<Grid item xs={12}>
+						<MessageContainer messages={messages} />
+					</Grid>
+					<Grid item xs={12}>
+						<SendMessage sendMessage={sendMessage} />
+					</Grid>
+				</Grid>
+			</Grid>
 		</div>
 
 	)
