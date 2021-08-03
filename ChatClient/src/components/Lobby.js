@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
-import { Button, InputAdornment, TextField } from '@material-ui/core';
+import { Button, InputAdornment, TextField, styled } from '@material-ui/core';
 import FavoriteSharp from '@material-ui/icons/FavoriteSharp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+
+const LobbyForm = styled("form")({
+	width: "50%",
+	margin: "auto"
+});
+
+const WaitingText = styled("div")({
+	color: "#78960b",
+	fontWeight: "bold",
+	fontSize: "20px",
+	marginTop: "1vh"
+});
 
 export default function Lobby(props) {
 	const { joinRoom } = props;
@@ -18,7 +30,7 @@ export default function Lobby(props) {
 		localStorage.setItem("current_chat_user", infor.username);
 		localStorage.setItem("current_chat_room", infor.room);
 		joinRoom(infor.username, infor.room);
-		setDisableButton(false);
+		//setDisableButton(false);
 	}
 
 	const handleChange = (e) => {
@@ -29,7 +41,7 @@ export default function Lobby(props) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} style={{ width: "40%", margin: "auto" }}>
+		<LobbyForm onSubmit={handleSubmit}>
 			<TextField name="username" onChange={handleChange}
 				fullWidth required label="Username" variant="outlined"
 				autoComplete="off" InputProps={{
@@ -59,6 +71,9 @@ export default function Lobby(props) {
 				disabled={disableButton} endIcon={<FavoriteSharp />}>
 				Join Room
 			</Button>
-		</form >
+			{disableButton && <WaitingText>
+				Waiting to join room ! F5 to retry if it takes too much time
+			</WaitingText>}
+		</LobbyForm >
 	)
 }
