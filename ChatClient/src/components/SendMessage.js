@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import { Button, TextField, Paper, Modal, styled } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import { Button, TextField } from '@material-ui/core';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import Picker from 'emoji-picker-react';
+
+const AdornmentButton = styled(Button)({
+	color: "#3f51b5",
+	width: "1vw"
+});
 
 export default function SendMessage(props) {
 	const { sendMessage } = props;
 	const [message, setMessage] = useState("");
+	const [showEmoji, setShowEmoji] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -12,22 +20,36 @@ export default function SendMessage(props) {
 		setMessage("");
 	}
 
-	const handleChange = (e) => {
-		setMessage(e.target.value);
+	const handleChange = (e) => setMessage(e.target.value);
+
+	const handleShowEmoji = () => setShowEmoji(true);
+
+	const handleCloseEmoji = () => setShowEmoji(false);
+
+	const handleEmojiClick = (e, emojiObject) => {
+		setMessage(message + emojiObject.emoji);
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<Paper elevation={3} component="form" onSubmit={handleSubmit} style={{ display: "flex" }} >
+
+			<Modal open={showEmoji} onClose={handleCloseEmoji}
+				style={{ top: "35%", left: "23%" }} disableEnforceFocus>
+				<Picker onEmojiClick={handleEmojiClick}
+					disableAutoFocus disableSkinTonePicker disableSearchBar />
+			</Modal>
+
 			<TextField value={message} name="message" onChange={handleChange}
 				fullWidth required label="Message" variant="outlined" autoComplete="off"
-				InputProps={{
-					endAdornment: (
-						<Button type="submit" color="primary" style={{ width: "1vw" }}>
-							<SendIcon />
-						</Button>
-					),
-				}}
 			/>
-		</form>
+
+			<AdornmentButton onClick={handleShowEmoji}>
+				<EmojiEmotionsIcon />
+			</AdornmentButton>
+
+			<AdornmentButton type="submit">
+				<SendIcon />
+			</AdornmentButton>
+		</Paper>
 	)
 }
