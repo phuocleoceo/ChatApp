@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 export default function SendMessage(props) {
 	const { sendMessage } = props;
@@ -20,7 +19,7 @@ export default function SendMessage(props) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<TextField value={message} name="message" onChange={handleChange}
-				fullWidth required label="Message" variant="outlined"
+				fullWidth required label="Message" variant="outlined" autoComplete="off"
 				InputProps={{
 					endAdornment: (
 						<Button type="submit" color="primary" style={{ width: "1vw" }}>

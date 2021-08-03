@@ -1,10 +1,9 @@
 import React from 'react';
-import { Button, Paper, Grid } from '@material-ui/core';
+import { Button, Paper, Grid, styled } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MessageContainer from './MessageContainer';
 import SendMessage from './SendMessage';
 import ConnectedUsers from './ConnectedUsers';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { styled } from '@material-ui/core';
 
 const LeaveButton = styled("div")({
 	textAlign: "right !important",
