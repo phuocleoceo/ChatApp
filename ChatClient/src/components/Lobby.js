@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, InputAdornment, TextField, styled } from '@material-ui/core';
 import FavoriteSharp from '@material-ui/icons/FavoriteSharp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -23,6 +23,21 @@ export default function Lobby(props) {
 		username: "",
 		room: ""
 	});
+
+	useEffect(() => {
+		const ReJoin = async () => {
+			const username = localStorage.getItem("current_chat_user");
+			const room = localStorage.getItem("current_chat_room");
+			if (username && room) {
+				setDisableButton(true);
+				await joinRoom(username, room);
+			} else {
+				setDisableButton(false);
+			}
+		}
+		ReJoin();
+		// eslint-disable-next-line
+	}, [])
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -72,7 +87,7 @@ export default function Lobby(props) {
 				Join Room
 			</Button>
 			{disableButton && <WaitingText>
-				Waiting to join room ! F5 to retry if it takes too much time
+				Please wait to join room ! F5 if it takes too much time
 			</WaitingText>}
 		</LobbyForm >
 	)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Chat from './components/Chat';
 import Lobby from './components/Lobby';
 import { styled } from '@material-ui/core';
@@ -27,17 +27,6 @@ function App() {
 	const [connection, setConnection] = useState();
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
-
-	useEffect(() => {
-		const ReJoin = async () => {
-			const username = localStorage.getItem("current_chat_user");
-			const room = localStorage.getItem("current_chat_room");
-			if (username && room) {
-				await joinRoom(username, room);
-			}
-		}
-		ReJoin();
-	}, [])
 
 	const joinRoom = async (username, room) => {
 		try {
