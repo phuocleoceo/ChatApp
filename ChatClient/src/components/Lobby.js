@@ -3,6 +3,8 @@ import { Button, InputAdornment, TextField, styled } from '@material-ui/core';
 import FavoriteSharp from '@material-ui/icons/FavoriteSharp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import { SAVE_USER, GET_USER_NAME, GET_ROOM } from '../LocalStorageService';
 
 const LobbyForm = styled("form")({
 	width: "50%",
@@ -13,12 +15,16 @@ const WaitingText = styled("div")({
 	color: "#78960b",
 	fontWeight: "bold",
 	fontSize: "20px",
-	marginTop: "1vh"
+	marginTop: "1.5vh"
 });
 
+const fullWidthButton = {
+	width: "100%"
+}
+
 export default function Lobby(props) {
-	const { joinRoom } = props;
-	const [disableButton, setDisableButton] = useState(false);
+	const { joinRoom, closeConnection } = props;
+	const [connecting, setConnecting] = useState(false);
 	const [infor, setInfor] = useState({
 		username: "",
 		room: ""
@@ -26,27 +32,30 @@ export default function Lobby(props) {
 
 	useEffect(() => {
 		const ReJoin = async () => {
-			const username = localStorage.getItem("current_chat_user");
-			const room = localStorage.getItem("current_chat_room");
+			const username = GET_USER_NAME();
+			const room = GET_ROOM();
 			if (username && room) {
-				setDisableButton(true);
+				setConnecting(true);
 				await joinRoom(username, room);
 			} else {
-				setDisableButton(false);
+				setConnecting(false);
 			}
 		}
 		ReJoin();
 		// eslint-disable-next-line
-	}, [])
+	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setDisableButton(true);
-		localStorage.setItem("current_chat_user", infor.username);
-		localStorage.setItem("current_chat_room", infor.room);
+		setConnecting(true);
+		SAVE_USER(infor.username, infor.room);
 		joinRoom(infor.username, infor.room);
-		//setDisableButton(false);
-	}
+	};
+
+	const handleStopConnecting = () => {
+		setConnecting(false);
+		closeConnection();
+	};
 
 	const handleChange = (e) => {
 		setInfor({
@@ -57,9 +66,9 @@ export default function Lobby(props) {
 
 	return (
 		<LobbyForm onSubmit={handleSubmit}>
-			<TextField name="username" onChange={handleChange}
-				fullWidth required label="Username" variant="outlined"
-				autoComplete="off" InputProps={{
+			<TextField name="username" onChange={handleChange} label="Username"
+				fullWidth required variant="outlined"
+				disabled={connecting} InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
 							<AccountCircle />
@@ -69,9 +78,9 @@ export default function Lobby(props) {
 			/>
 			<br /><br />
 
-			<TextField name="room" onChange={handleChange}
-				fullWidth required label="Room" variant="outlined"
-				autoComplete="off" InputProps={{
+			<TextField name="room" onChange={handleChange} label="Room"
+				fullWidth required variant="outlined" autoComplete="off"
+				disabled={connecting} InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
 							<MeetingRoomIcon />
@@ -81,14 +90,27 @@ export default function Lobby(props) {
 			/>
 			<br /><br />
 
-			<Button type="submit" variant="contained"
-				style={{ width: "100%" }} color="primary"
-				disabled={disableButton} endIcon={<FavoriteSharp />}>
-				Join Room
-			</Button>
-			{disableButton && <WaitingText>
-				Please wait to join room ! F5 if it takes too much time
-			</WaitingText>}
+			{!connecting &&
+				<Button type="submit" variant="contained"
+					style={fullWidthButton} color="primary"
+					endIcon={<FavoriteSharp />}>
+					Join Room
+				</Button>
+			}
+
+			{connecting &&
+				<>
+					<Button onClick={handleStopConnecting} variant="contained"
+						style={fullWidthButton} color="secondary"
+						endIcon={<PowerSettingsNewIcon />}>
+						Stop Connecting
+					</Button>
+
+					<WaitingText>
+						Please Wait To Join / ReJoin Room !
+					</WaitingText>
+				</>
+			}
 		</LobbyForm >
 	)
 }
