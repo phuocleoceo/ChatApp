@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { GET_USER_NAME } from '../LocalStorageService';
 import { styled } from '@material-ui/core';
 
 const MessContainer = styled("div")({
@@ -52,7 +53,7 @@ const OtherUser = styled("div")({
 export default function MessageContainer(props) {
 	const { messages } = props;
 	const messageRef = useRef();
-	const currentUserName = localStorage.getItem("current_chat_user");
+	const currentUserName = GET_USER_NAME();
 
 	useEffect(() => {
 		if (messageRef && messageRef.current) {

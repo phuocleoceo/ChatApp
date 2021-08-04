@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Chat from './components/Chat';
 import Lobby from './components/Lobby';
 import { styled } from '@material-ui/core';
+import { REMOVE_USER } from './LocalStorageService';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 const AppContainer = styled("div")({
@@ -65,8 +66,7 @@ function App() {
 
 	const closeConnection = async () => {
 		try {
-			localStorage.setItem("current_chat_user", "");
-			localStorage.setItem("current_chat_room", "");
+			REMOVE_USER();
 			await connection.stop();
 		}
 		catch (e) {
@@ -84,7 +84,7 @@ function App() {
 					<Chat sendMessage={sendMessage} messages={messages}
 						users={users} closeConnection={closeConnection} />
 					:
-					<Lobby joinRoom={joinRoom} />
+					<Lobby joinRoom={joinRoom} closeConnection={closeConnection} />
 			}
 		</AppContainer>
 	);

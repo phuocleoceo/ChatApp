@@ -9,6 +9,11 @@ const AdornmentButton = styled(Button)({
 	width: "1vw"
 });
 
+const EmojiModalPosition = {
+	top: "35%",
+	left: "23%"
+};
+
 export default function SendMessage(props) {
 	const { sendMessage } = props;
 	const [message, setMessage] = useState("");
@@ -34,7 +39,7 @@ export default function SendMessage(props) {
 		<Paper elevation={3} component="form" onSubmit={handleSubmit} style={{ display: "flex" }} >
 
 			<Modal open={showEmoji} onClose={handleCloseEmoji}
-				style={{ top: "35%", left: "23%" }} disableEnforceFocus>
+				style={EmojiModalPosition} disableEnforceFocus>
 				<Picker onEmojiClick={handleEmojiClick}
 					disableAutoFocus disableSkinTonePicker disableSearchBar />
 			</Modal>
