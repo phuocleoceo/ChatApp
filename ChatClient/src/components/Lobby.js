@@ -55,6 +55,8 @@ export default function Lobby(props) {
 	const handleStopConnecting = () => {
 		setConnecting(false);
 		closeConnection();
+		//Reload because closeConnection() cannot stop joinRoom()
+		window.location.reload();
 	};
 
 	const handleChange = (e) => {
